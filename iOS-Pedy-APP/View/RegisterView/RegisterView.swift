@@ -10,7 +10,7 @@ import SwiftUI
 struct RegisterView: View {
     var body: some View {
         VStack {
-            // Cabeçalho
+            	
             ZStack {
                 HStack {	
                     Button(action: {
@@ -24,7 +24,7 @@ struct RegisterView: View {
                     Spacer()
                 }
                 
-                // Título no centro
+                
                 Text("Tela de Cadastro")
                     .bold()
                     .font(.title2)
@@ -46,7 +46,7 @@ struct RegisterView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 115, height: 115)
 
-                    // Botão no canto inferior direito
+                   
                     Button(action: {
                         print("Editar clicado!")
                     }) {
