@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct RegisterView: View {
+    
+    
     var body: some View {
         VStack {
-            	
+            
             ZStack {
-                HStack {	
+                HStack {
                     Button(action: {
                         print("Voltar clicado!")
                     }) {
@@ -29,43 +31,29 @@ struct RegisterView: View {
                     .bold()
                     .font(.title2)
             }
-            .padding(.horizontal, 24)
             
-           
+            
             Text("Cadastre seu primeiro pet: ")
                 .bold()
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 24)
                 .padding(.top, 24)
             
             
-            ZStack {
-                    Image("IconCat")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 115, height: 115)
-
-                   
-                    Button(action: {
-                        print("Editar clicado!")
-                    }) {
-                        Image(systemName: "pencil")
-                            .foregroundColor(.white)
-                            .padding(8)
-                            .background(Circle().fill(Color("primaryColor")))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                    }
-                    .offset(x: 40, y: 40)
-            }
-            .padding(.vertical, 24)
+            AvatarPetView()
             
-            Spacer()
+            InputView(textInterno: "Nome do Pet" )
+            InputView(textInterno: "Idade")
         }
-        .padding(.top, 16)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-    }}
+            
+                .padding(.horizontal, 24)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }}
 
 #Preview {
     RegisterView()
 }
+
+
+
+
