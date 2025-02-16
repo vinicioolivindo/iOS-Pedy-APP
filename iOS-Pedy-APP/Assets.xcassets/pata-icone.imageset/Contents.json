@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "cat 1.png",
+      "filename" : "pata-icone.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "pata-icone.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
