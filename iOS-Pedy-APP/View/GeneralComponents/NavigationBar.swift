@@ -23,7 +23,7 @@ var body: some View {
                         .font(.system(size: 24))
                         .padding()
                         .foregroundColor(selectedIcon == 1 ? Color("primaryColor") : Color("GrayDark"))
-                    Text("Home")
+                    Text("Início")
                         .font(.caption)
                         .foregroundColor(selectedIcon == 1 ? Color("primaryColor") : Color("GrayDark"))
                 }

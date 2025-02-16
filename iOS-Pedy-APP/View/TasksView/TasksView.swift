@@ -49,18 +49,21 @@ struct TasksView: View {
                     TextField("Pesquise por uma tarefa..", text: .constant(""))
                         .padding(10)
                 }
+                .frame(width: 280) // Faz a barra de pesquisa ocupar o máximo possível
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
-                
+
                 Button(action: {}) {
                     Image(systemName: "plus")
                         .padding()
                         .background(Color("primaryColor"))
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                        .frame(width: 75, height: 30)
                 }
             }
             .padding(.horizontal)
+            .padding(.bottom, 10) // Espaço abaixo da barra de pesquisa
 
             // Botões de Filtro
             HStack {
@@ -114,6 +117,8 @@ struct TaskCard: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(task.title)
                     .font(.headline)
+                    .strikethrough(task.isCompleted, color: .gray) // Tachado para tarefas concluídas
+                    .foregroundColor(task.isCompleted ? .gray : .primary) // Texto cinza para tarefas concluídas
                 
                 HStack {
                     Image(systemName: "calendar")
@@ -129,14 +134,12 @@ struct TaskCard: View {
             
             Spacer()
             
-            // Ícones alinhados verticalmente
             VStack(spacing: 5) {
                 Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "xmark.circle.fill")
                     .foregroundColor(task.isCompleted ? .green : .red)
                     .font(.title)
                 
-                // Ícone de pata abaixo do check/uncheck
-                Image("pata-icone") // Usando um ícone do Assets
+                Image("pata-icone")
                     .resizable()
                     .frame(width: 24, height: 24)
                     .foregroundColor(.gray)
