@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct TasksView: View {
+    @State private var selectedIcon: Int = 2
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        VStack{
+            Text("Tela de task")
+        }
+    }}
 
 #Preview {
     TasksView()

@@ -11,12 +11,13 @@ import SwiftUI
 struct InputView: View {
     
     @State private var namePet: String = ""
+    @State private var typePet: String = ""
     @FocusState private var isFocused: Bool
     let textInterno: String
     
-    
     var body: some View {
         TextField((textInterno), text: $namePet)
+        
             .padding(.vertical, 20)
             .padding(.horizontal, 24)
             .background(
@@ -25,5 +26,7 @@ struct InputView: View {
             )
             .focused($isFocused)
             .accentColor(isFocused ? Color("primaryColor") : Color("GrayDark"))
+    
+        Spacer()
     }
 }

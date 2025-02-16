@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selectedIcon: Int = 1
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Group {
+                switch selectedIcon {
+                case 1:
+                    AnyView(HomeView())
+                case 2:
+                    AnyView(TasksView())
+                case 3:
+                    AnyView(ProfileView())
+                default:
+                    AnyView(Text("Tela não encontrada!"))
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            NavigationBar(selectedIcon: $selectedIcon)
         }
-        .padding()
     }
 }
 

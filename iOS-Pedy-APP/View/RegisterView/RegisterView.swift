@@ -9,47 +9,60 @@ import SwiftUI
 
 struct RegisterView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var path: [String] = []
+    @State private var selectedOption = "Cachorro"
+    let options = ["Cachorro", "Gato", "Pássaro", "Peixe"]
     
     var body: some View {
-        VStack {
-            
-            ZStack {
-                HStack {
-                    Button(action: {
-                        print("Voltar clicado!")
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
-                            .padding(15)
-                            .background(Rectangle().fill(Color(.white)).cornerRadius(16).shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5))
-                    }
-                    Spacer()
-                }
-                
-                
+        NavigationStack(path: $path) {
+            VStack {
                 Text("Tela de Cadastro")
                     .bold()
                     .font(.title2)
+                
+                
+                
+                Text("Cadastre seu primeiro pet: ")
+                    .bold()
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 24)
+                
+                
+                AvatarPetView()
+                
+                InputView(textInterno: "Nome do Pet")
+                CustomPickerView()
+                InputView(textInterno: "Idade")
+                InputView(textInterno: "Porte")
+                CustomPickerGender()
+                
+                CustomButton(title: "Salvar"){
+                    path.append("ContentView")
+                }
+                            
+            }.navigationDestination(for: String.self) {destination in
+                if destination == "ContentView" {
+                    ContentView()
+                }
             }
+            .padding(.horizontal, 24)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
-            
-            Text("Cadastre seu primeiro pet: ")
-                .bold()
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 24)
-            
-            
-            AvatarPetView()
-            
-            InputView(textInterno: "Nome do Pet" )
-            InputView(textInterno: "Idade")
+            .navigationBarBackButtonHidden(true)
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading){
+                    BackButton{
+                        dismiss()
+                    }
+                }
+            }
         }
-            
-                .padding(.horizontal, 24)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        }}
-
+        
+    }
+}
 #Preview {
     RegisterView()
 }
