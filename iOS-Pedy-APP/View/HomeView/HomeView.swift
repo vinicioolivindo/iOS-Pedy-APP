@@ -47,8 +47,10 @@ struct HomeView: View {
                         .padding(.horizontal)
                     
                     VStack(spacing: 10) {
-                        TaskCardView(title: "Beber água", subtitle: "All days | 09:30", color: Color.blue)
-                        TaskCardView(title: "Consulta veterinária", subtitle: "12.06.2023 | 09:30", color: Color.red)
+                        VStack(spacing: 10) {
+                            TaskCardView(title: "Beber água", subtitle: "All days | 09:30", color: Color(red: 0.0, green: 0.51, blue: 0.89)) // Cor 0082E2 aplicada
+                            TaskCardView(title: "Consulta veterinária", subtitle: "12.06.2023 | 09:30", color: Color(red: 1.0, green: 0.39, blue: 0.40)) // Cor FF6367 aplicada
+                        }
                     }
                     .padding(.horizontal)
                     
@@ -116,6 +118,7 @@ struct ProgressCardView: View {
             VStack(alignment: .leading) {
                 Text("Parabéns,")
                     .font(.headline)
+                    .foregroundColor(Color("primaryColor"))
                     .bold()
                 Text("80% das tarefas para este mês foram concluídas")
                     .font(.subheadline)
@@ -124,10 +127,11 @@ struct ProgressCardView: View {
             
             Spacer()
             
-            Image(systemName: "heart.fill") // Substitua por uma imagem real
+            // Substitua o coração pela imagem "image-home-process"
+            Image("image-home-process") // Usando o nome da imagem sem a extensão
                 .resizable()
-                .frame(width: 50, height: 50)
-                .foregroundColor(.pink)
+                .frame(width: 150, height: 150)
+                .scaledToFit()
         }
         .padding()
         .background(Color(.systemGray6))

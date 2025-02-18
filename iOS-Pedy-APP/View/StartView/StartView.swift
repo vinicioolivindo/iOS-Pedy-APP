@@ -26,8 +26,11 @@ struct StartView: View {
                 
                 Spacer()
                 
-                // Usando o NavigationLink com um CustomButton dentro
-                NavigationLink("Iniciar", destination: RegisterView())
+                NavigationLink(destination: RegisterView()) {
+                    CustomButton(title: "Iniciar") {
+                        // Ação vazia, pois o NavigationLink já lida com a navegação
+                    }
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding(.top, 36)
@@ -35,7 +38,6 @@ struct StartView: View {
         }
     }
 }
-
 
 #Preview {
     StartView()

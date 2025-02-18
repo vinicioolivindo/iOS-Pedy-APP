@@ -12,13 +12,12 @@ struct Task: Identifiable {
     let title: String
     let frequency: String
     let time: String?
-    let isCompleted: Bool
+    var isCompleted: Bool // Deixando a propriedade como var para poder alterar
 }
 
 struct TasksView: View {
     @State private var selectedFilter: String = "Todas"
-    
-    let tasks: [Task] = [
+    @State private var tasks: [Task] = [
         Task(title: "Beber água", frequency: "Diário", time: "12:00", isCompleted: true),
         Task(title: "Passeio", frequency: "seg-qua-sex", time: "15:00", isCompleted: false),
         Task(title: "Consulta veterinária", frequency: "12.06.2023", time: "18:00", isCompleted: false),
@@ -34,6 +33,19 @@ struct TasksView: View {
             return tasks.filter { !$0.isCompleted }
         default:
             return tasks
+        }
+    }
+    
+    // Função para adicionar uma nova tarefa
+    func addNewTask() {
+        let newTask = Task(title: "Nova Tarefa", frequency: "Diário", time: "12:00", isCompleted: false)
+        tasks.append(newTask)
+    }
+    
+    // Função para alternar o estado de concluída de uma tarefa
+    func toggleCompletion(for task: Task) {
+        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks[index].isCompleted.toggle()
         }
     }
     
@@ -53,7 +65,7 @@ struct TasksView: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
 
-                Button(action: {}) {
+                Button(action: addNewTask) {
                     Image(systemName: "plus")
                         .padding()
                         .background(Color("primaryColor"))
@@ -100,7 +112,7 @@ struct TasksView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     ForEach(filteredTasks) { task in
-                        TaskCard(task: task)
+                        TaskCard(task: task, toggleCompletion: toggleCompletion)
                     }
                 }
             }
@@ -111,6 +123,7 @@ struct TasksView: View {
 
 struct TaskCard: View {
     let task: Task
+    let toggleCompletion: (Task) -> Void // Função passada para alternar o estado
     
     var body: some View {
         HStack {
@@ -135,9 +148,11 @@ struct TaskCard: View {
             Spacer()
             
             VStack(spacing: 5) {
-                Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundColor(task.isCompleted ? .green : .red)
-                    .font(.title)
+                Button(action: { toggleCompletion(task) }) {
+                    Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundColor(task.isCompleted ? .green : .red)
+                        .font(.title)
+                }
                 
                 Image("pata-icone")
                     .resizable()
@@ -154,4 +169,4 @@ struct TaskCard: View {
 
 #Preview {
     TasksView()
-}
+} 
