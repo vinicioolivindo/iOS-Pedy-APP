@@ -2,7 +2,7 @@
 //  StartView.swift
 //  iOS-Pedy-APP
 //
-//  Created by iredefbmac_23 on 16/01/25.
+//  Created by iredefbmac_23 on 16/01/25.	
 //
 
 import SwiftUI
