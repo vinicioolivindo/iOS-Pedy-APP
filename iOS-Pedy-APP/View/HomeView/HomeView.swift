@@ -9,76 +9,78 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                
-                // Cabeçalho
-                HStack {
-                    Text("Olá 👋")
-                        .font(.title2)
-                        .bold()
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
                     
-                    Spacer()
-                    
-                    Button(action: {
-                        // Ação do botão de notificações
-                    }) {
-                        Image(systemName: "bell")
+                    // Cabeçalho
+                    HStack {
+                        Text("Olá 👋")
                             .font(.title2)
-                            .foregroundColor(.black)
-                            .padding(10)
-                            .background(Color.white)
-                            .clipShape(Circle())
-                            .shadow(radius: 3)
-                    }
-                }
-                .padding(.horizontal)
-                
-                // Mensagem de boas-vindas
-                Text("Bem-vindo!\nCuide dos seus pets com facilidade")
-                    .font(.title)
-                    .bold()
-                    .padding(.horizontal)
-                
-                // Seção "Cuidados de hoje"
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Cuidados de hoje")
-                        .font(.custom("Poppins-Regular", size: 20))                        .bold()
-                        .padding(.horizontal)
-                    
-                    VStack(spacing: 10) {
-                        VStack(spacing: 10) {
-                            TaskCardView(title: "Beber água", subtitle: "All days | 09:30", color: Color(red: 0.0, green: 0.51, blue: 0.89)) // Cor 0082E2 aplicada
-                            TaskCardView(title: "Consulta veterinária", subtitle: "12.06.2023 | 09:30", color: Color(red: 1.0, green: 0.39, blue: 0.40)) // Cor FF6367 aplicada
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            // Ação do botão de notificações
+                        }) {
+                            Image(systemName: "bell")
+                                .font(.title2)
+                                .foregroundColor(.black)
+                                .padding(10)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 3)
                         }
                     }
                     .padding(.horizontal)
                     
-                    // Botão "Ver todos"
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            // Ação do botão
-                        }) {
-                            HStack {
-                                Text("Ver todos")
-                                    .foregroundColor(.black)
-                                Image(systemName: "arrow.right")
-                                    .foregroundColor(.black)
+                    // Mensagem de boas-vindas
+                    Text("Bem-vindo!\nCuide dos seus pets com facilidade")
+                        .font(.title)
+                        .bold()
+                        .padding(.horizontal)
+                    
+                    // Seção "Cuidados de hoje"
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Cuidados de hoje")
+                            .font(.custom("Poppins-Regular", size: 20))
+                            .bold()
+                            .padding(.horizontal)
+                        
+                        VStack(spacing: 10) {
+                            VStack(spacing: 10) {
+                                TaskCardView(title: "Beber água", subtitle: "All days | 09:30", color: Color(red: 0.0, green: 0.51, blue: 0.89)) // Cor 0082E2 aplicada
+                                TaskCardView(title: "Consulta veterinária", subtitle: "12.06.2023 | 09:30", color: Color(red: 1.0, green: 0.39, blue: 0.40)) // Cor FF6367 aplicada
                             }
                         }
+                        .padding(.horizontal)
+                        
+                        // Botão "Ver todos"
+                        HStack {
+                            Spacer()
+                            NavigationLink(destination: TasksView()) {
+                                HStack {
+                                    Text("Ver todos")
+                                        .foregroundColor(.black)
+                                    Image(systemName: "arrow.right")
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
-                }
-                
-                // Seção de progresso
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Progresso")
-                        .font(.custom("Poppins-Regular", size: 20))                        .bold()
-                        .padding(.horizontal)
                     
-                    ProgressCardView()
-                        .padding(.horizontal)
+                    // Seção de progresso
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Progresso")
+                            .font(.custom("Poppins-Regular", size: 20))
+                            .bold()
+                            .padding(.horizontal)
+                        
+                        ProgressCardView()
+                            .padding(.horizontal)
+                    }
                 }
             }
         }
