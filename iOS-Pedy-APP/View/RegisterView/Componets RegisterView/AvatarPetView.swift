@@ -29,6 +29,6 @@ struct AvatarPetView: View {
         .padding(.vertical, 24)
         .onTapGesture {
             print("teste")
-        }
+        }		
     }
 }
