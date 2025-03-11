@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CustomPickerView: View {
-    @State private var options = ["Cachorro", "Gato", "Pássaro"]
-    @State private var selectedOption: String? = nil
+    var options: [String] = []
+    @Binding var selectedOption: String
     @State private var isFocused: Bool = false
     
     var body: some View {
@@ -24,8 +24,8 @@ struct CustomPickerView: View {
                    }
                } label: {
                    HStack {
-                       Text(selectedOption ?? "Qual seu animalzinho?")
-                           .foregroundColor(selectedOption == nil ? .gray : .black)
+                       Text(selectedOption)
+                           .foregroundColor(.black)
                            .font(.body)
                        
                        Spacer()
