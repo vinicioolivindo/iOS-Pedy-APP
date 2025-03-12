@@ -4,14 +4,27 @@
 //
 //  Created by iredefbmac_23 on 16/01/25.	
 //
-
+//
+//  StartView.swift
+//  iOS-Pedy-APP
+//
+//  Created by iredefbmac_23 on 16/01/25.
+//
+//
+//  StartView.swift
+//  iOS-Pedy-APP
+//
+//  Created by iredefbmac_23 on 16/01/25.
+//
 import SwiftUI
 
 struct StartView: View {
+    @EnvironmentObject var router: AppRouter  // Acessa o roteador global
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $router.path) { // Usa a pilha de navegação do AppRouter
             VStack {
-                Text("Seja \nBem vindo!!")
+                Text("Seja \nBem-vindo!!")
                     .bold()
                     .font(.system(size: 45))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -26,10 +39,8 @@ struct StartView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: RegisterView()) {
-                    CustomButton(title: "Iniciar") {
-                        // Ação vazia, pois o NavigationLink já lida com a navegação
-                    }
+                CustomButton(title: "Iniciar") {
+                    router.path = [.homeview]
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -40,5 +51,6 @@ struct StartView: View {
 }
 
 #Preview {
-    StartView()
+    StartView() // Criando uma instância de AppRouter para o preview
 }
+

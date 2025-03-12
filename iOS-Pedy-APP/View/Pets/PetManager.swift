@@ -5,14 +5,28 @@
 //  Created by iredefbmac_23 on 03/03/25.
 //
 
+import Foundation
+import SwiftData
 import SwiftUI
 
-struct PetManager: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class PetManager: ObservableObject {
+    
+    static var shared = PetManager()
+    @Query var pets: [Pet] = []
+    @Published var activePet: Pet
+    
+    private init() {
+        self.activePet = Pet(name: "" , icon: "", animalType: "", breed: "", age: "", size: "", gender: "")
     }
-}
 
-#Preview {
-    PetManager()
+//    func addPet(_ pet: Pet) {
+//        pets.append(pet)
+//        activePet = pet
+//    }
+    
+    func getPet(){
+        if(pets.count > 0){
+            activePet = pets[0]
+        }
+    }
 }

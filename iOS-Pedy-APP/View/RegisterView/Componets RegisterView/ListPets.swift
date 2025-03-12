@@ -5,14 +5,18 @@
 //  Created by iredefbmac_23 on 27/02/25.
 //
 
-import SwiftUI
+import Foundation
 
-struct ListPetsView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct ListPets{
+    let name: String
+    let icon: String
 }
 
-#Preview {
-    ListPetsView()
-}
+let listPets: [ListPets] = [
+    ListPets(name: "Gato", icon: "IconCat"),
+    ListPets(name: "Cachorro", icon: "IconDog"),
+    ListPets(name: "Coelho", icon: "IconRabbit"),
+    ListPets(name: "Pássaro", icon: "IconBird"),
+    ListPets(name: "Peixe", icon: "IconFish"),
+    ListPets(name: "Pato", icon: "IconDuck")
+]

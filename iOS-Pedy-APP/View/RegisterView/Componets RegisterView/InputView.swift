@@ -7,17 +7,13 @@
 
 import SwiftUI
 
-
 struct InputView: View {
-    
-    @State private var namePet: String = ""
-    @State private var typePet: String = ""
-    @FocusState private var isFocused: Bool
-    let textInterno: String
-    
+    let textInterno: String // Placeholder do campo
+    @Binding var text: String // Texto digitado (Binding para permitir reutilização)
+    @FocusState private var isFocused: Bool // Estado de foco
+
     var body: some View {
-        TextField((textInterno), text: $namePet)
-        
+        TextField(textInterno, text: $text)
             .padding(.vertical, 20)
             .padding(.horizontal, 24)
             .background(
@@ -26,7 +22,9 @@ struct InputView: View {
             )
             .focused($isFocused)
             .accentColor(isFocused ? Color("primaryColor") : Color("GrayDark"))
-    
+            .keyboardType(.default) // Altere para .numberPad ou outro tipo, se necessário
+            .autocapitalization(.words) // Ajuste conforme necessário
+            .disableAutocorrection(false) // Ajuste conforme necessário
         Spacer()
     }
 }

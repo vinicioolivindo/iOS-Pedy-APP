@@ -13,7 +13,7 @@ struct WelcomeView: View {
     var body: some View {
         ZStack{
             if isActive{
-                StartView()
+                ContentView()
                     .transition(.opacity)
             } else {
                 ZStack {
@@ -34,6 +34,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    WelcomeView()// Necessário para o Preview funcionar
 }
-

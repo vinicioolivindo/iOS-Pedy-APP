@@ -6,67 +6,70 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RegisterView: View {
-    
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var path: [String] = []
-    @State private var selectedOption = "Cachorro"
-    let options = ["Cachorro", "Gato", "Pássaro", "Peixe"]
-    
+    @EnvironmentObject private var petManager: PetManager
+
+    @State private var selectedIcon = "IconCat"
+    @State private var selectedAnimalName = "Gato"
+    @State private var petName: String = ""
+    @State private var petAge: String = ""
+    @State private var petGender: String? = nil
+    @State private var petSize = ""
+
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack {
             VStack {
                 Text("Tela de Cadastro")
                     .bold()
                     .font(.title2)
-                
-                
-                
+
                 Text("Cadastre seu primeiro pet: ")
                     .bold()
                     .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 24)
-                
-                
-                AvatarPetView()
-                
-                InputView(textInterno: "Nome do Pet")
-                CustomPickerView()
-                InputView(textInterno: "Idade")
-                InputView(textInterno: "Porte")
-                CustomPickerGender()
-                
-                CustomButton(title: "Salvar"){
-                    path.append("ContentView")
-                }
-                            
-            }.navigationDestination(for: String.self) {destination in
-                if destination == "ContentView" {
-                    ContentView()
+
+                AvatarPetView(selectedIcon: $selectedIcon, selectedAnimalName: $selectedAnimalName)
+
+                InputView(textInterno: "Nome do Pet", text: $petName)
+                CustomPickerPet(options: listPets.map { $0.name }, selectedOption: $selectedAnimalName)
+                InputView(textInterno: "Idade", text: $petAge)
+                InputView(textInterno: "Porte", text: $petSize)
+                CustomPickerGender(selectedOption: $petGender)
+
+                CustomButton(title: "Salvar") {
+                    let newPet = Pet(
+                        name: petName,
+                        icon: selectedIcon,
+                        animalType: selectedAnimalName,
+                        breed: "Raça", // Adicione um campo para raça se necessário
+                        age: petAge,
+                        size: petSize,
+                        gender: petGender!
+                  )
+//                    petManager.addPet(newPet)
+                    context.insert(newPet)
+                    dismiss()
                 }
             }
             .padding(.horizontal, 24)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            
             .navigationBarBackButtonHidden(true)
-            .toolbar{
-                ToolbarItem(placement: .navigationBarLeading){
-                    BackButton{
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    BackButton {
                         dismiss()
                     }
                 }
             }
         }
-        
     }
 }
 #Preview {
     RegisterView()
 }
 
-
-
-
+	

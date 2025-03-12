@@ -3,7 +3,6 @@
 //  iOS-Pedy-APP
 //
 //  Created by iredefbmac_23 on 18/01/25.
-//
 
 import SwiftUI
 
@@ -36,14 +35,14 @@ struct HomeView: View {
                     .padding(.horizontal)
                     
                     // Mensagem de boas-vindas
-                    Text("Bem-vindo!\nCuide dos seus pets com facilidade")
+                    Text("\nCuide dos seus pets com facilidade")
                         .font(.title)
                         .bold()
                         .padding(.horizontal)
                     
                     // Seção "Cuidados de hoje"
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Cuidados de hoje")
+                        Text("Lembretes para hoje:")
                             .font(.custom("Poppins-Regular", size: 20))
                             .bold()
                             .padding(.horizontal)

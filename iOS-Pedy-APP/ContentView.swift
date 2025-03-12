@@ -4,33 +4,46 @@
 //
 //  Created by iredefbmac_23 on 07/01/25.
 //
-
 import SwiftUI
 
+
 struct ContentView: View {
-    @State private var selectedIcon: Int = 1
+    @State private var selectedIcon: AppScreen = .homeview
+    @StateObject private var router = AppRouter()
 
     var body: some View {
-        VStack {
-            Group {
-                switch selectedIcon {
-                case 1:
-                    AnyView(HomeView())
-                case 2:
-                    AnyView(TasksView())
-                case 3:
-                    AnyView(ProfileView())
-                default:
-                    AnyView(Text("Tela não encontrada!"))
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        NavigationStack(path: $router.path) {
+            VStack {
+                screenView(for: selectedIcon)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            NavigationBar(selectedIcon: $selectedIcon)
+                NavigationBar(selectedIcon: $selectedIcon)
+                    .offset(y: 10)
+            }
+            .navigationDestination(for: AppScreen.self) { screen in
+                screenView(for: screen)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func screenView(for screen: AppScreen) -> some View {
+        switch screen {
+        case .onboarding:
+            StartView()
+        case .homeview:
+            HomeView()
+        case .lembretes:
+            TasksView()
+        case .perfil:
+            ProfileView()
+        case .registerview:
+            RegisterView()
         }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AppRouter())
 }

@@ -7,34 +7,26 @@
 
 import SwiftUI
 
-enum Frequency: String, CaseIterable, Identifiable {
-    case diario = "Diário"
-    case semanal = "Semanal"
-    case mensal = "Mensal"
-    
-    var id: String { rawValue }
-}
 
-struct Task: Identifiable {
-    let id = UUID()
-    var title: String
-    var frequency: Frequency
-    var date: Date?
-    var isCompleted: Bool
-}
 
 struct TasksView: View {
+    
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedFilter: String = "Todas"
-    @State private var tasks: [Task] = [
-        Task(title: "Beber água", frequency: .diario, date: Date(), isCompleted: true),
-        Task(title: "Passeio", frequency: .semanal, date: Date(), isCompleted: false),
-        Task(title: "Consulta veterinária", frequency: .mensal, date: Date(), isCompleted: false)
+    @State private var tasks: [TaskModel] = [
+        TaskModel(title: "Beber água", frequency: .diario, date: Date(), isCompleted: true),
+        TaskModel(title: "Passeio", frequency: .semanal, date: Date(), isCompleted: false),
+        TaskModel(title: "Consulta veterinária", frequency: .mensal, date: Date(), isCompleted: false)
     ]
     
     @State private var showingAddTaskSheet = false
-    @State private var editingTask: Task? = nil
+    @State private var editingTask: TaskModel? = nil
     
-    var filteredTasks: [Task] {
+    init(initialFilter: String = "Todas") {
+            _selectedFilter = State(initialValue: initialFilter)
+        }
+    
+    var filteredTasks: [TaskModel] {
         switch selectedFilter {
         case "Concluídas":
             return tasks.filter { $0.isCompleted }
@@ -45,23 +37,23 @@ struct TasksView: View {
         }
     }
     
-    func addTask(_ newTask: Task) {
+    func addTask(_ newTask: TaskModel) {
         tasks.append(newTask)
     }
     
-    func updateTask(_ updatedTask: Task) {
+    func updateTask(_ updatedTask: TaskModel) {
         if let index = tasks.firstIndex(where: { $0.id == updatedTask.id }) {
             tasks[index] = updatedTask
         }
     }
     
-    func toggleCompletion(for task: Task) {
+    func toggleCompletion(for task: TaskModel) {
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks[index].isCompleted.toggle()
         }
     }
     
-    func deleteTask(_ task: Task) {
+    func deleteTask(_ task: TaskModel) {
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks.remove(at: index)
         }
@@ -150,14 +142,15 @@ struct TasksView: View {
             EditTaskView(task: task,
                          onSave: { updatedTask in updateTask(updatedTask) },
                          onDelete: { task in deleteTask(task) })
+            
         }
     }
 }
 
 struct TaskCard: View {
-    let task: Task
-    let toggleCompletion: (Task) -> Void
-    let deleteTask: (Task) -> Void
+    let task: TaskModel
+    let toggleCompletion: (TaskModel) -> Void
+    let deleteTask: (TaskModel) -> Void
     
     var body: some View {
         HStack {
@@ -204,6 +197,7 @@ struct TaskCard: View {
             } label: {
                 Label("Excluir", systemImage: "trash")
             }
+            
         }
     }
 }
@@ -220,7 +214,7 @@ struct AddTaskView: View {
     @State private var frequency: Frequency = .diario
     @State private var date: Date = Date()
     
-    var onSave: (Task) -> Void
+    var onSave: (TaskModel) -> Void
     
     var body: some View {
         NavigationView {
@@ -244,7 +238,7 @@ struct AddTaskView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Salvar") {
-                        let newTask = Task(
+                        let newTask = TaskModel(
                             title: title,
                             frequency: frequency,
                             date: date,
@@ -262,10 +256,10 @@ struct AddTaskView: View {
 
 struct EditTaskView: View {
     @Environment(\.dismiss) var dismiss
-    @State var task: Task
+    @State var task: TaskModel
     
-    var onSave: (Task) -> Void
-    var onDelete: (Task) -> Void
+    var onSave: (TaskModel) -> Void
+    var onDelete: (TaskModel) -> Void
     
     var body: some View {
         NavigationView {

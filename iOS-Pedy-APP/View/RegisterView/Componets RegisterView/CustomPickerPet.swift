@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomPickerView: View {
+struct CustomPickerPet: View {
     var options: [String] = []
     @Binding var selectedOption: String
     @State private var isFocused: Bool = false
