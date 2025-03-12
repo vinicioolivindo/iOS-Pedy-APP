@@ -1,4 +1,5 @@
 
+
 //
 //  DataPets.swift
 //  iOS-Pedy-APP
@@ -16,17 +17,16 @@ class Pet: Identifiable {
     var icon: String
     var animalType: String
     var breed: String
-    var age: String
-    var size: String
+    var age: Int
     var gender: String
     
-    init(name: String, icon: String, animalType: String, breed: String, age: String, size: String, gender: String) {
+    init(name: String, icon: String, animalType: String, breed: String, age: Int, gender: String) {
         self.name = name
         self.icon = icon
         self.animalType = animalType
         self.breed = breed
         self.age = age
-        self.size = size
         self.gender = gender
     }
+
 }

@@ -1,3 +1,4 @@
+
 //
 //  PetManager.swift
 //  iOS-Pedy-APP
@@ -16,7 +17,7 @@ class PetManager: ObservableObject {
     @Published var activePet: Pet
     
     private init() {
-        self.activePet = Pet(name: "" , icon: "", animalType: "", breed: "", age: "", size: "", gender: "")
+        self.activePet = Pet(name: "" , icon: "", animalType: "", breed: "", age: 0, gender: "")
     }
 
 //    func addPet(_ pet: Pet) {

@@ -11,14 +11,13 @@ import SwiftData
 struct RegisterView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var petManager: PetManager
 
     @State private var selectedIcon = "IconCat"
     @State private var selectedAnimalName = "Gato"
     @State private var petName: String = ""
-    @State private var petAge: String = ""
+    @State private var petBreed: String = ""
+    @State private var petAge: Int = 0
     @State private var petGender: String? = nil
-    @State private var petSize = ""
 
     var body: some View {
         NavigationStack {
@@ -37,8 +36,8 @@ struct RegisterView: View {
 
                 InputView(textInterno: "Nome do Pet", text: $petName)
                 CustomPickerPet(options: listPets.map { $0.name }, selectedOption: $selectedAnimalName)
-                InputView(textInterno: "Idade", text: $petAge)
-                InputView(textInterno: "Porte", text: $petSize)
+                InputView(textInterno: "Raça", text: $petBreed)
+                CustomPickerAge(selectedAge: $petAge)
                 CustomPickerGender(selectedOption: $petGender)
 
                 CustomButton(title: "Salvar") {
@@ -46,9 +45,8 @@ struct RegisterView: View {
                         name: petName,
                         icon: selectedIcon,
                         animalType: selectedAnimalName,
-                        breed: "Raça", // Adicione um campo para raça se necessário
+                        breed: petBreed, // Adicione um campo para raça se necessário
                         age: petAge,
-                        size: petSize,
                         gender: petGender!
                   )
 //                    petManager.addPet(newPet)
@@ -72,4 +70,4 @@ struct RegisterView: View {
     RegisterView()
 }
 
-	
+    

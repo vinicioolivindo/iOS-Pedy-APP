@@ -1,3 +1,11 @@
+
+//
+//  ProfileView.swift
+//  iOS-Pedy-APP
+//
+//  Created by iredefbmac_23 on 18/01/25.
+//
+
 //
 //  ProfileView.swift
 //  iOS-Pedy-APP
@@ -8,7 +16,6 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject private var petManager: PetManager
 
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -16,10 +23,10 @@ struct ProfileView: View {
     ]
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(alignment: .leading, spacing: 20) {
                 
-                CardPetView(petManager: PetManager.shared)
+                CardPetView()
                 
 //                HStack {
 //                    Text("Perfis ativos de Pets")
@@ -43,7 +50,7 @@ struct ProfileView: View {
 //                            .underline()
 //                            .foregroundColor(.white)
 //                    }.padding()
-//                    
+//
 //                    Spacer()
 //
 //                    // Imagem do pet ou imagem padrão
