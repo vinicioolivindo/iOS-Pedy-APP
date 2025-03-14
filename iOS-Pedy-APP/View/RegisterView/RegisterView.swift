@@ -11,6 +11,7 @@ import SwiftData
 struct RegisterView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Query var listPets: [Pet] // Buscar pets existentes
 
     @State private var selectedIcon = "IconCat"
     @State private var selectedAnimalName = "Gato"
@@ -18,6 +19,7 @@ struct RegisterView: View {
     @State private var petBreed: String = ""
     @State private var petAge: Int = 0
     @State private var petGender: String? = nil
+    @State private var showingPetExistsAlert = false // Estado para o alerta
 
     var body: some View {
         NavigationStack {
@@ -41,17 +43,20 @@ struct RegisterView: View {
                 CustomPickerGender(selectedOption: $petGender)
 
                 CustomButton(title: "Salvar") {
-                    let newPet = Pet(
-                        name: petName,
-                        icon: selectedIcon,
-                        animalType: selectedAnimalName,
-                        breed: petBreed, // Adicione um campo para raça se necessário
-                        age: petAge,
-                        gender: petGender!
-                  )
-//                    petManager.addPet(newPet)
-                    context.insert(newPet)
-                    dismiss()
+                    if listPets.isEmpty { // Verifica se não há pets cadastrados
+                        let newPet = Pet(
+                            name: petName,
+                            icon: selectedIcon,
+                            animalType: selectedAnimalName,
+                            breed: petBreed,
+                            age: petAge,
+                            gender: petGender!
+                        )
+                        context.insert(newPet)
+                        dismiss()
+                    } else {
+                        showingPetExistsAlert = true // Exibe o alerta se já houver um pet
+                    }
                 }
             }
             .padding(.horizontal, 24)
@@ -64,10 +69,12 @@ struct RegisterView: View {
                 }
             }
         }
+        .alert(isPresented: $showingPetExistsAlert) { // Alerta
+            Alert(
+                title: Text("Pet já cadastrado"),
+                message: Text("Você só pode cadastrar um pet."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
-#Preview {
-    RegisterView()
-}
-
-    

@@ -22,7 +22,9 @@ struct Header: View {
                 .font(.subheadline)
                 .underline()
                 .foregroundColor(.white)
-        }
+        }.padding(.horizontal, 20)
+        
+        Spacer()
         
         VStack{
             Image(pet.icon.isEmpty ? "NonePetIcon" : pet.icon)

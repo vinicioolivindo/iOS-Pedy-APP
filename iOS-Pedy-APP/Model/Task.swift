@@ -31,4 +31,3 @@ class TaskModel: Identifiable {
         self.isCompleted = isCompleted
     }
 }
-

@@ -9,21 +9,34 @@ import SwiftUI
 import SwiftData
 
 struct CardPetView: View {
-    
-    @Query var listPets: [Pet] = []
-    
+    let pet: Pet
+    @Environment(\.modelContext) private var modelContext
+    @State private var showingDeleteAlert = false
+
     var body: some View {
-        HStack{
-            
-            if listPets.count > 0 {
-                Header(pet: listPets[0])
-            } else {
-                Header(pet: Pet(name: "", icon: "", animalType: "", breed: "", age: 0, gender: ""))
-            }
-            
-        }.frame(maxWidth: .infinity)
-            .background(Color("primaryColor"))
-            .cornerRadius(14)
-            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        HStack {
+            Header(pet: pet)
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color("primaryColor"))
+        .cornerRadius(14)
+        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .onTapGesture {
+            showingDeleteAlert = true
+        }
+        .alert(isPresented: $showingDeleteAlert) {
+            Alert(
+                title: Text("Excluir Pet"),
+                message: Text("Tem certeza que deseja excluir \(pet.name)?"),
+                primaryButton: .destructive(Text("Excluir")) {
+                    deletePet()
+                },
+                secondaryButton: .cancel()
+            )
+        }
+    }
+
+    private func deletePet() {
+        modelContext.delete(pet)
     }
 }

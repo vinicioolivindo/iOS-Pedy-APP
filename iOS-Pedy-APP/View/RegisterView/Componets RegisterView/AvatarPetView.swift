@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-
 struct AvatarPetView: View {
     @Binding var selectedIcon: String // Agora o ícone é controlado pelo componente pai
     @Binding var selectedAnimalName: String // Agora o nome do animal também é controlado pelo pai
     @State private var showIconPicker = false // Controla a exibição da popup
-
 
     var body: some View {
         ZStack {
