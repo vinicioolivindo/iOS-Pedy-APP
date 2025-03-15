@@ -18,7 +18,13 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
+            Text("Tela de perfil")
+                .bold()
+                .font(.title2)
             VStack(alignment: .leading, spacing: 20) {
+                
+                
+                
                 if let pet = listPets.first {
                     CardPetView(pet: pet)
                 } else {
@@ -38,7 +44,7 @@ struct ProfileView: View {
                                     destination: RegisterView()
                                 )
                             } else {
-                                CardView(title: "Voce ja possui um pet adicionado!", subtitle: "Caso queria mudar de pet, remova o atual clicando no card!", destination: ProfileView())
+                                CardView(title: "Voce ja possui um pet adicionado!", subtitle: "Caso queria mudar de pet, remova o atual clicando no card!", destination: ContentView())
                                 
                             }
                             

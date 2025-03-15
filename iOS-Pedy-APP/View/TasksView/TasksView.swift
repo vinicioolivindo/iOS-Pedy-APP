@@ -68,7 +68,9 @@ struct TasksView: View {
    
     var body: some View {
         VStack {
-            // Barra de pesquisa e botão de adicionar
+            Text("Tela de lembretes")
+                .bold()
+                .font(.title2)            // Barra de pesquisa e botão de adicionar
             HStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -78,7 +80,7 @@ struct TasksView: View {
                     TextField("Pesquise por uma tarefa...", text: .constant(""))
                         .padding(10)
                 }
-                .frame(width: 280)
+                .frame(height: 54	)
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
                
@@ -88,7 +90,7 @@ struct TasksView: View {
                         .background(Color("primaryColor"))
                         .foregroundColor(.white)
                         .cornerRadius(10)
-                        .frame(width: 75, height: 30)
+                        .frame(height: 54)
                 }
             }
             .padding(.horizontal)
@@ -120,7 +122,10 @@ struct TasksView: View {
         .sheet(item: $editingTask) { task in
             EditTaskView(task: task,
                          onSave: { updatedTask in updateTask(updatedTask) },
-                         onDelete: { task in deleteTask(task) })
+                         onDelete: {
+                task in deleteTask(task)
+                
+            })
         }
     }
 }
